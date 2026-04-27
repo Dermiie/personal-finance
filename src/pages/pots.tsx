@@ -1,3 +1,9 @@
+import PotsContainer from "../features/pots/components/pots-container";
+
 export default function Pots() {
-  return <div>pots</div>;
+  return (
+    <div>
+      <PotsContainer /> POTS
+    </div>
+  );
 }

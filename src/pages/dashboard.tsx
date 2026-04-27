@@ -1,3 +1,7 @@
 export default function Dashboard() {
-  return <div>dashboard</div>;
+  return (
+    <>
+      <header className="text-4xl font-bold">Overview</header>
+    </>
+  );
 }

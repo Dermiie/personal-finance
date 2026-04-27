@@ -16,7 +16,7 @@ export default defineConfig([
 
   // React + Hooks + Vite Refresh
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ["**/*.{ts,tsx,js,jsx}"],
     plugins: {
       react: reactPlugin,
       "react-hooks": reactHooks,
