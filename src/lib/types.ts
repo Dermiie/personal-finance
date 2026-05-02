@@ -7,6 +7,18 @@ export interface Pot {
   is_default: boolean;
 }
 
+export interface DeductPotRequest {
+  amount: number;
+  fromPotId: string;
+  balance: number;
+}
+
+export interface CreditPotRequest {
+  amount: number;
+  toPotId: string;
+  balance: number;
+}
+
 export interface Transaction {
   id: string;
   created_at: string;
@@ -22,4 +34,12 @@ export interface Transaction {
 export interface TransactionResponse {
   transactions: Transaction[];
   error?: string;
+}
+
+export interface CreateTransactionRequest {
+  amount: number;
+  fromPotId: string;
+  toPotId: string;
+  user_id: string;
+  type: string;
 }

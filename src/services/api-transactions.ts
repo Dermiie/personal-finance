@@ -1,5 +1,5 @@
 import supabase from "../lib/supabase";
-import type { Transaction } from "../lib/types";
+import type { CreateTransactionRequest, Transaction } from "../lib/types";
 
 export async function getTransactions(): Promise<Transaction[]> {
   const { data, error } = await supabase.from("transactions").select(`
@@ -20,4 +20,23 @@ export async function getTransactions(): Promise<Transaction[]> {
   }));
 
   return formattedData as Transaction[];
+}
+
+export async function createTransaction({
+  amount,
+  fromPotId,
+  toPotId,
+  user_id,
+  type,
+}: CreateTransactionRequest) {
+  const { data, error } = await supabase
+    .from("transactions")
+    .insert({ amount, fromPotId, toPotId, user_id, type })
+    .select();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Transaction could not be updated");
+  }
+  return data;
 }
