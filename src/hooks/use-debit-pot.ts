@@ -3,10 +3,12 @@ import { deductPot } from "../services/api-pots";
 
 export default function useDebitPot() {
   const queryClient = useQueryClient();
-  return useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: deductPot,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["pots"] });
     },
   });
+
+  return { mutate, isPending };
 }

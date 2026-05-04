@@ -4,10 +4,12 @@ import { createTransaction } from "../services/api-transactions";
 
 export default function useCreateTransaction() {
   const queryClient = useQueryClient();
-  return useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: createTransaction,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
     },
   });
+
+  return { mutate, isPending };
 }

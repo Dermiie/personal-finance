@@ -1,13 +1,15 @@
-import { Children } from "react";
-
 interface Props {
+  onClick?: () => void;
   children: React.ReactNode;
 }
 
-export default function Button({ children }: Props) {
+export default function Button({ children, onClick }: Props) {
   return (
-    <div className="bg-beige-200 w-full rounded-md py-2 text-center text-sm">
+    <button
+      onClick={onClick}
+      className="bg-beige-200 w-full rounded-md py-2 text-center text-sm"
+    >
       {children}
-    </div>
+    </button>
   );
 }

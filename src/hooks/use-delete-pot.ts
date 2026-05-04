@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { creditPot } from "../services/api-pots";
+import { deletePot } from "../services/api-pots";
 
-export default function useCreditPot() {
+export function useDeletePot() {
   const queryClient = useQueryClient();
+
   const { mutate, isPending } = useMutation({
-    mutationFn: creditPot,
+    mutationFn: deletePot,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["pots"] });
     },

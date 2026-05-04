@@ -69,8 +69,8 @@ function Open({ children, opens, triggerRef }: OpenProps) {
   return cloneElement(children, {
     ...children.props,
     onClick: () => {
+      children.props.onClick?.();
       open(opens);
-      children.props.onClick();
     },
     ref: triggerRef, // attach ref to element
   });
@@ -87,12 +87,15 @@ function Window({ children, name }: WindowProps) {
   if (openName !== name) return null;
 
   return createPortal(
-    <div>
+    <div
+      className={`fixed inset-0 z-1000 h-screen w-full overflow-scroll backdrop-blur-sm transition-all duration-500 ${
+        openName === name ? "visible opacity-100" : "invisible opacity-0"
+      }`}
+    >
       <div ref={ref}>
-        <button onClick={close}>
-          <HiXMark></HiXMark>
-        </button>
-        <div>{cloneElement(children, { onCloseModal: close })}</div>
+        <div className="bg-beige-100/70 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md shadow-sm transition-all duration-500">
+          {cloneElement(children, { onCloseModal: close })}
+        </div>
       </div>
     </div>,
     document.body,

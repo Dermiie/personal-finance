@@ -26,12 +26,17 @@ export async function createTransaction({
   amount,
   fromPotId,
   toPotId,
-  user_id,
   type,
 }: CreateTransactionRequest) {
   const { data, error } = await supabase
     .from("transactions")
-    .insert({ amount, fromPotId, toPotId, user_id, type })
+    .insert({
+      amount,
+      fromPotId,
+      toPotId,
+      type,
+      user_id: "b82ffbac-4ae4-453c-8a41-5f761243664d",
+    })
     .select();
 
   if (error) {

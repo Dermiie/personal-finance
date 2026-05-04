@@ -7,6 +7,10 @@ export interface Pot {
   is_default: boolean;
 }
 
+// export interface DeletePotRequest {
+//   id: string;
+// }
+
 export interface DeductPotRequest {
   amount: number;
   fromPotId: string;
@@ -40,6 +44,5 @@ export interface CreateTransactionRequest {
   amount: number;
   fromPotId: string;
   toPotId: string;
-  user_id: string;
   type: string;
 }
