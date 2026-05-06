@@ -26,7 +26,7 @@ export default function PotsContainer() {
             </button>
           </Modal.Open>
           <Modal.Window name={"addPot"}>
-            <AddPotModal />
+            <AddPotModal defaultPot={defaultPot} />
           </Modal.Window>
         </Modal>
       </header>

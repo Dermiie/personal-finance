@@ -1,6 +1,11 @@
 import type { CreditPotRequest, DeductPotRequest, Pot } from "../lib/types";
 import supabase from "../lib/supabase";
 
+interface CreatePotRequest {
+  name: string;
+  balance: number;
+}
+
 export async function getPots(): Promise<Pot[]> {
   const { data, error } = await supabase
     .from("pots")
@@ -15,22 +20,37 @@ export async function getPots(): Promise<Pot[]> {
   return data as Pot[];
 }
 
+export async function getDefaultPot(): Promise<Pot> {
+  const { data, error } = await supabase
+    .from("pots")
+    .select("*")
+    .eq("is_default", true)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Default pot could not be fetched");
+  }
+
+  return data;
+}
+
 export async function addPot({
   name,
   balance,
-}: {
-  name: string;
-  balance: number;
-}) {
-  const { error } = await supabase
+}: CreatePotRequest): Promise<Pot> {
+  const { data, error } = await supabase
     .from("pots")
     .insert([{ name, balance }])
-    .select();
+    .select()
+    .single();
 
   if (error) {
     console.error(error);
     throw new Error("Transaction could not be updated");
   }
+
+  return data;
 }
 
 export async function deductPot({

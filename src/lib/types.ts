@@ -5,6 +5,7 @@ export interface Pot {
   balance: number;
   user_id: string;
   is_default: boolean;
+  is_deleted: boolean;
 }
 
 // export interface DeletePotRequest {
