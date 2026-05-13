@@ -5,6 +5,8 @@ import { useDeletePot } from "../../../hooks/use-delete-pot";
 import useCreateTransaction from "../../../hooks/use-create-transaction";
 import useCreditPot from "../../../hooks/use-credit-pot";
 import useDebitPot from "../../../hooks/use-debit-pot";
+import Modal from "../../../ui/modal";
+import DepositFundModal from "./deposit-fund-modal";
 
 interface Props {
   pot: Pot;
@@ -106,7 +108,20 @@ export default function PotCard({ pot, defaultPot }: Props) {
         </div>
       </div>
       <div className="flex w-full gap-2">
-        <Button>+ Add Money</Button>
+        {pot.is_default ? (
+          <Modal>
+            <Modal.Open opens="deposit-funds">
+              <Button className="bg-beige-900 text-beige-300">
+                + Deposit Funds
+              </Button>
+            </Modal.Open>
+            <Modal.Window name="deposit-funds">
+              <DepositFundModal defaultPot={defaultPot} />
+            </Modal.Window>
+          </Modal>
+        ) : (
+          <Button>+ Add Money</Button>
+        )}
         <Button onClick={handleDeletePot}>Delete Pot</Button>
       </div>
     </div>

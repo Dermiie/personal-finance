@@ -22,19 +22,11 @@ export async function getTransactions(): Promise<Transaction[]> {
   return formattedData as Transaction[];
 }
 
-export async function createTransaction({
-  amount,
-  fromPotId,
-  toPotId,
-  type,
-}: CreateTransactionRequest) {
+export async function createTransaction(transaction: CreateTransactionRequest) {
   const { data, error } = await supabase
     .from("transactions")
     .insert({
-      amount,
-      fromPotId,
-      toPotId,
-      type,
+      ...transaction,
       user_id: "b82ffbac-4ae4-453c-8a41-5f761243664d",
     })
     .select();

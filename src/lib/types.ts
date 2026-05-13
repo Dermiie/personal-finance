@@ -24,26 +24,46 @@ export interface CreditPotRequest {
   balance: number;
 }
 
+export type TransactionType = "deposit" | "expense" | "transfer";
+
+interface BaseTransactionRequest {
+  amount: number;
+}
+
+interface DepositTransactionRequest extends BaseTransactionRequest {
+  type: "deposit";
+  toPotId: string;
+}
+
+interface ExpenseTransactionRequest extends BaseTransactionRequest {
+  type: "expense";
+  fromPotId: string;
+}
+
+interface TransferTransactionRequest extends BaseTransactionRequest {
+  type: "transfer";
+  fromPotId: string;
+  toPotId: string;
+}
+
+export type CreateTransactionRequest =
+  | DepositTransactionRequest
+  | ExpenseTransactionRequest
+  | TransferTransactionRequest;
+
 export interface Transaction {
   id: string;
   created_at: string;
-  type: string;
+  type: TransactionType;
   amount: number;
-  fromPotId: string;
-  fromPotName: string;
-  toPotId: string;
-  toPotName: string;
+  fromPotId?: string;
+  fromPotName?: string;
+  toPotId?: string;
+  toPotName?: string;
   budget_id: string;
   user_id: string;
 }
 export interface TransactionResponse {
   transactions: Transaction[];
   error?: string;
-}
-
-export interface CreateTransactionRequest {
-  amount: number;
-  fromPotId: string;
-  toPotId: string;
-  type: string;
 }

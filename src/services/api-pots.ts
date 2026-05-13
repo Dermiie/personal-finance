@@ -58,15 +58,24 @@ export async function deductPot({
   fromPotId,
   balance,
 }: DeductPotRequest) {
+  const updatedBalance = balance - amount;
+
   const { data, error } = await supabase
     .from("pots")
-    .update({ balance: balance - amount })
-    .eq("id", fromPotId);
+    .update({
+      balance: updatedBalance,
+    })
+    .eq("id", fromPotId)
+    .select()
+    .single();
 
   if (error) {
     console.error(error);
     throw new Error("Transaction could not be updated");
   }
+
+  console.log(data);
+
   return data;
 }
 

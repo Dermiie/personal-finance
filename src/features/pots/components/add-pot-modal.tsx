@@ -8,15 +8,11 @@ import useDebitPot from "../../../hooks/use-debit-pot";
 import type { Pot } from "../../../lib/types";
 import toast from "react-hot-toast";
 import useCreateTransaction from "../../../hooks/use-create-transaction";
+import Input from "../../../ui/input";
 
 interface AddPotProps {
   onCloseModal?: () => void;
   defaultPot: Pot;
-}
-
-interface Input {
-  potName: string;
-  startBalance: number;
 }
 interface FormInput {
   potName: string;
@@ -24,7 +20,7 @@ interface FormInput {
 }
 
 export default function AddPotModal({ onCloseModal, defaultPot }: AddPotProps) {
-  const { register, handleSubmit } = useForm<Input>();
+  const { register, handleSubmit } = useForm<FormInput>();
   const { mutate: createPot } = useCreatePot();
   const { mutate: debitPot } = useDebitPot();
   const { mutate: createTransaction } = useCreateTransaction();
@@ -70,12 +66,11 @@ export default function AddPotModal({ onCloseModal, defaultPot }: AddPotProps) {
 
       <form onSubmit={handleSubmit(handleSubmitForm)} className="py-6">
         <div className="flex items-center gap-3">
-          <label>Pot name:</label>
-          <input
+          <Input
+            label="Pot Name"
+            registration={register("potName")}
             type="text"
-            {...register("potName")}
-            className="rounded-md border border-gray-800"
-          ></input>
+          />
         </div>
         <div>
           <p>
@@ -83,12 +78,11 @@ export default function AddPotModal({ onCloseModal, defaultPot }: AddPotProps) {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <label>Start Balance:</label>
-          <input
+          <Input
+            label="Start Balance"
+            registration={register("startBalance")}
             type="number"
-            {...register("startBalance")}
-            className="rounded-md border border-gray-800"
-          ></input>
+          />
         </div>
 
         <button type="submit" className="border-2">
